@@ -7,6 +7,8 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
 
+var faker = require('faker');
+
 var User     = require('./app/models/user');
 
 // Connect to database
@@ -36,6 +38,26 @@ router.get('/', function(req, res) {
 });
 
 // more routes for our API will happen here
+
+//Faker URL
+
+router.route('/faker')
+
+// create a user (accessed at POST http://localhost:9090/api/users)
+    .post(function(req, res) {
+
+        var user = new User();      // create a new instance of the user model
+        user.name = faker.name.findName();  // set the users name (comes from the request)
+
+        // save the user and check for errors
+        user.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'User created!' });
+        });
+
+    });
 
 // on routes that end in /users
 // ----------------------------------------------------
