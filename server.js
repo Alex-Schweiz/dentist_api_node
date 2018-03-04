@@ -9,7 +9,9 @@ var mongoose   = require('mongoose');
 
 var faker = require('faker');
 
-var User     = require('./app/models/user');
+var routesApi = require('./app/medical-team/routes');
+
+var User = require('./app/models/user');
 
 // Connect to database
 mongoose.connect('mongodb://127.0.0.1:27017/dentist_api');
@@ -135,7 +137,7 @@ router.route('/users')
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
-app.use('/api', router);
+app.use('/api', routesApi);
 
 // START THE SERVER
 // =============================================================================
